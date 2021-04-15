@@ -1,6 +1,9 @@
 # ESP32_Network_Toolbox_Scripts
 ESP32 Network Toolbox Scripts
 
+This tool needs an ESP32 controller specially crafted from here:
+https://www.tindie.com/products/klhnikov/esp32-network-toolbox/
+
 ## Install
 ```
 pip install -r requirements.txt

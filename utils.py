@@ -13,9 +13,10 @@ def connect_serial(timeout=None):
 			exit()
 		for l in ports_list:
 			print(l)
-		serialportInput = input("[?] Select a serial port (default 'COM3'): ")
+		first_port = str(ports_list[0]).split(" - ")[0]
+		serialportInput = input("[?] Select a serial port (default '%s'): " % first_port)
 		if serialportInput == "":
-			serialport = "COM3"
+			serialport = first_port
 		else:
 			serialport = serialportInput
 		canBreak = False

@@ -29,7 +29,7 @@ def main(target, ap, chan, ssid):
 	try:
 		chanInput = input("[?] Select a channel (default '%d'): " % chan)
 		if chanInput != "":
-			chan = chanInput
+			chan = int(chanInput)
 	except KeyboardInterrupt:
 		print("\n[+] Exiting...")
 		exit()

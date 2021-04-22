@@ -11,9 +11,13 @@ def connect_serial(timeout=None):
 		if len(ports_list) == 0:
 			print("No COM port detected, exiting...")
 			exit()
+		first_port = None
 		for l in ports_list:
 			print(l)
-		first_port = str(ports_list[0]).split(" - ")[0]
+			if "USB" in str(l) or "usb" in str(l) or "Serial" in str(l) or "serial" in str(l):
+				first_port = str(l).split(" - ")[0]
+		if first_port == None:
+			first_port = str(ports_list[0]).split(" - ")[0]
 		serialportInput = input("[?] Select a serial port (default '%s'): " % first_port)
 		if serialportInput == "":
 			serialport = first_port

@@ -7,6 +7,37 @@ if __name__ == "__main__":
 
 	f = open(filename, 'wb')
 
+	# set country
+	country = "FR"
+
+	try:
+		countryInput = input("[?] Select a country (default '%s'): " % country)
+		if countryInput != "":
+			country = countryInput
+	except KeyboardInterrupt:
+		print("\n[+] Exiting...")
+		exit()
+
+	ser.write(("set country %s\r\n" % country).encode())
+	ln = ser.read_until(b"\r\n").decode("utf-8")
+	try:
+		if (ln == None or len(ln) == 0):
+			print("Empty country setting, exiting...")
+			exit()
+		try:
+			j = json.loads(ln)
+			recv_country = j.get("WIFI_COUNTRY")
+			if recv_country != country:
+				print("Error 1 setting country, exiting...")
+				exit()
+		except:
+			print("Error 2 setting country, exiting...")
+			exit()
+	except:
+		print("Error 3 setting country, exiting...")
+		exit()	
+
+	# set channel
 	chan = 11
 	try:
 		chanInput = input("[?] Select a channel (default '%d'): " % chan)

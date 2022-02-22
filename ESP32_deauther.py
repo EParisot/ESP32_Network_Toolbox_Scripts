@@ -26,6 +26,9 @@ def main(target, ap, chan, ssid):
 		print("\n[+] Exiting...")
 		exit()
 
+	apInput = apInput.upper().replace(":", "-")
+	targetInput = targetInput.upper().replace(":", "-")
+
 	country = "FR"
 	try:
 		countryInput = input("[?] Select a country (default '%s'): " % country)

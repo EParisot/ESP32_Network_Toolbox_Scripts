@@ -6,7 +6,7 @@ from utils import connect_serial
 @click.command()
 @click.argument('target', default="FF-FF-FF-FF-FF-FF") # Setup your default Macs here
 @click.argument('ap', default="") # Setup your default Macs here
-@click.argument("ssid", default="") # Setup your default Evil SSID here
+@click.argument("ssid", default="None") # Setup your default Evil SSID here
 @click.argument('chan', default=11) # Setup your default Chan here
 def main(target, ap, chan, ssid):
 	try:
@@ -97,7 +97,7 @@ def main(target, ap, chan, ssid):
 		print("Error 3 setting channel, exiting...")
 		exit()
 		
-	ser.write(("wifi_deauth %s %s %s\r\n" % (target, ap, ssid)).encode())
+	ser.write(("wifi_deauth %s %s %s 1000 1\r\n" % (target, ap, ssid)).encode())
 	print("[+] Deauther started...")
 
 	try:

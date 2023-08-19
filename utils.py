@@ -5,7 +5,7 @@ import json
 
 BAUD_RATE = 115200
 
-def connect_serial(timeout=None):
+def connect_serial(timeout=None, default_filename="capture.pcap"):
 	try:
 		ports_list = list(serial.tools.list_ports.comports())
 		if len(ports_list) == 0:
@@ -41,9 +41,9 @@ def connect_serial(timeout=None):
 					continue
 				canBreak = True
 		filenameInput = input(
-			"[?] Select a filename (default 'capture.pcap'): ")
+			"[?] Select a filename (default '%s'): " % default_filename)
 		if filenameInput == "":
-			filename = "capture.pcap"
+			filename = default_filename
 		else:
 			filename = filenameInput
 	except KeyboardInterrupt:
@@ -70,12 +70,12 @@ def connect_serial(timeout=None):
 				time.sleep(2)
 				continue
 		except KeyboardInterrupt:
-		    print("\n[+] Exiting...")
-		    exit()
+			print("\n[+] Exiting...")
+			exit()
 		except Exception as e:
-		    print("[!] Serial connection failed with error: %s" % str(e))
-		    time.sleep(2)
-		    continue
+			print("[!] Serial connection failed with error: %s" % str(e))
+			time.sleep(2)
+			continue
 
 	print("[+] Serial connected. Name: %s, rate: %s" % (ser.name, str(boardRate)))
 	return ser, filename

@@ -15,6 +15,18 @@ if __name__ == "__main__":
 
 	print(f"[+] OTA file loaded with size: {size}")
 
+	ser.write(f"version\r\n".encode())
+	try:
+		while True:
+			ln = ser.read_until(b"\r\n")
+			print(ln)
+			f.write(ln)
+			f.flush()
+			if ln.startswith(b'{"VERSION":'):
+				break
+	except KeyboardInterrupt:
+		print("[+] Stopping...")
+
 	ser.write(f"ota_flash {size}\r\n".encode())
 	print("[+] OTA started...")
 

